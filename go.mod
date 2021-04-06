@@ -11,7 +11,7 @@ require (
 	github.com/hashicorp/hcl v1.0.0
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/stretchr/testify v1.7.0 // indirect
-	github.com/urfave/cli/v2 v2.3.0
+	github.com/urfave/cli v1.22.5
 	golang.org/x/sys v0.0.0-20210403161142-5e06dd20ab57 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )

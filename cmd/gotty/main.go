@@ -9,13 +9,34 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli"
 
 	"github.com/negbie/gotty/internal/backend/localcommand"
 	"github.com/negbie/gotty/internal/homedir"
 	"github.com/negbie/gotty/internal/server"
 	"github.com/negbie/gotty/internal/utils"
 )
+
+var Version = "unknown_version"
+var CommitID = "unknown_commit"
+
+var helpTemplate = `NAME:
+   {{.Name}} - {{.Usage}}
+
+USAGE:
+   {{.Name}} [options] <command> [<arguments...>]
+
+VERSION:
+   {{.Version}}{{if or .Author .Email}}
+
+AUTHOR:{{if .Author}}
+  {{.Author}}{{if .Email}} - <{{.Email}}>{{end}}{{else}}
+  {{.Email}}{{end}}{{end}}
+
+OPTIONS:
+   {{range .Flags}}{{.}}
+   {{end}}
+`
 
 func main() {
 	app := cli.NewApp()
@@ -41,11 +62,11 @@ func main() {
 
 	app.Flags = append(
 		cliFlags,
-		&cli.StringFlag{
-			Name:    "config",
-			Value:   "~/.gotty",
-			Usage:   "Config file path",
-			EnvVars: []string{"GOTTY_CONFIG"},
+		cli.StringFlag{
+			Name:   "config",
+			Value:  "~/.gotty",
+			Usage:  "Config file path",
+			EnvVar: "GOTTY_CONFIG",
 		},
 	)
 
@@ -73,7 +94,7 @@ func main() {
 			exit(err, 6)
 		}
 
-		args := c.Args().Slice()
+		args := c.Args()
 		factory, err := localcommand.NewFactory(args[0], args[1:], backendOptions)
 		if err != nil {
 			exit(err, 3)
