@@ -70,17 +70,17 @@ func main() {
 		},
 	)
 
-	app.Action = func(c *cli.Context) error {
-		if c.NArg() == 0 {
+	app.Action = func(c *cli.Context) {
+		if len(c.Args()) == 0 {
 			cli.ShowAppHelp(c)
-			return fmt.Errorf("Error: No command given.")
+			exit(fmt.Errorf("You see this because you didn't provide a command or program to run."), 1)
 		}
 
 		configFile := c.String("config")
 		_, err := os.Stat(homedir.Expand(configFile))
 		if configFile != "~/.gotty" || !os.IsNotExist(err) {
 			if err := utils.ApplyConfigFile(configFile, appOptions, backendOptions); err != nil {
-				return fmt.Errorf("failed to apply config file: %w", err)
+				exit(err, 2)
 			}
 		}
 
@@ -124,10 +124,9 @@ func main() {
 		err = waitSignals(errs, cancel, gCancel)
 
 		if err != nil && err != context.Canceled {
-			return fmt.Errorf("Error: %w", err)
+			exit(err, 8)
 		}
 
-		return nil
 	}
 	app.Run(os.Args)
 }
