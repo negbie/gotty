@@ -72,7 +72,7 @@ func (server *Server) generateHandleWS(ctx context.Context, cancel context.Cance
 		}
 		defer conn.Close()
 
-		err = server.processWSConn(ctx, conn, exportHeaders(server.options, "GOTTY_", r))
+		err = server.processWSConn(ctx, conn)
 
 		switch err {
 		case ctx.Err():
@@ -87,7 +87,7 @@ func (server *Server) generateHandleWS(ctx context.Context, cancel context.Cance
 	}
 }
 
-func (server *Server) processWSConn(ctx context.Context, conn *websocket.Conn, env map[string]string) error {
+func (server *Server) processWSConn(ctx context.Context, conn *websocket.Conn) error {
 	typ, initLine, err := conn.ReadMessage()
 	if err != nil {
 		return fmt.Errorf("failed to authenticate websocket connection: %w", err)
@@ -116,7 +116,7 @@ func (server *Server) processWSConn(ctx context.Context, conn *websocket.Conn, e
 	}
 	params := query.Query()
 	var slave Slave
-	slave, err = server.factory.New(params, env)
+	slave, err = server.factory.New(params)
 	if err != nil {
 		return fmt.Errorf("failed to create backend: %w", err)
 	}
