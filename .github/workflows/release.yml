@@ -1,10 +1,7 @@
 
 name: Release
 
-on:
-  push:
-    tags:
-      - 'v*.*.*'
+on: [on:workflow_dispatch]
 
 jobs:
   build:
