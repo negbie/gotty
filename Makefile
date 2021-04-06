@@ -26,7 +26,7 @@ assets: ## Build static assets
 binaries: ## Builds binaries (assets must be built separately)
 	mkdir -p $(BUILD_DIR)
 	$(foreach GOOS, $(PLATFORMS),\
-	$(foreach GOARCH, $(ARCHITECTURES), $(shell export GOOS=$(GOOS); export GOARCH=$(GOARCH); $(GOENV) go build $(BUILD_OPTIONS) -o $(BUILD_DIR)/$(BINARY) cmd/gotty/*.go && tar czf $(BUILD_DIR)/$(BINARY)-$(GOOS)-$(GOARCH).tgz .gotty --directory=$(BUILD_DIR) $(BINARY) && rm $(BUILD_DIR)/$(BINARY))))
+	$(foreach GOARCH, $(ARCHITECTURES), $(shell export GOOS=$(GOOS); export GOARCH=$(GOARCH); $(GOENV) go build $(BUILD_OPTIONS) -o $(BUILD_DIR)/$(BINARY) cmd/gotty/*.go && tar czf $(BUILD_DIR)/$(BINARY)-$(GOOS)-$(GOARCH).tgz .gotty --directory=$(BUILD_DIR) $(BINARY))))
 	cd ${BUILD_DIR} && sha256sum * > ./SHA256SUMS
 
 fmt: ## Run go fmt
