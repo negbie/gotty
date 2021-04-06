@@ -2,13 +2,13 @@
 
 BUILD_DIR = out
 GIT_COMMIT = `git rev-parse --short HEAD`
-VERSION = 1.1.0
+VERSION = 2.1.0
 BUILD_OPTIONS = -ldflags "-X main.Version=$(VERSION) -X main.CommitID=$(GIT_COMMIT)"
 BINARY = gotty
 GOENV = GOARM=5 CGO_ENABLED=0
 
-PLATFORMS=darwin linux freebsd netbsd openbsd
-ARCHITECTURES=386 amd64 arm arm64
+PLATFORMS=linux
+ARCHITECTURES=amd64
 
 .PHONY: help
 help:  ## Show this help
