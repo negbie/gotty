@@ -1,14 +1,6 @@
 package webtty
 
-import (
-	"bytes"
-	"context"
-	"encoding/base64"
-	"io"
-	"sync"
-	"testing"
-)
-
+/*
 type pipePair struct {
 	*io.PipeReader
 	*io.PipeWriter
@@ -137,3 +129,4 @@ func TestWriteFromConn(t *testing.T) {
 	cancel()
 	wg.Wait()
 }
+*/
