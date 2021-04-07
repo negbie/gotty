@@ -1,5 +1,5 @@
 
-name: Release
+name: CI
 
 on: [workflow_dispatch]
 jobs:
@@ -32,7 +32,6 @@ jobs:
           go build cmd/gotty/*.go
       - run: make fmt
       - run: make assets
-      - run: make build
       - run: make binaries
       - uses: actions/upload-artifact@v1.0.0
         with:
