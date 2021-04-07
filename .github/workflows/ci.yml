@@ -36,5 +36,5 @@ jobs:
       - uses: actions/upload-artifact@v1.0.0
         with:
           name: gotty
-          path: ./gotty
+          path: ./out/gotty
       
